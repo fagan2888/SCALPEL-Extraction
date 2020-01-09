@@ -61,21 +61,10 @@ class FollowUpTransformer(config: FollowUpTransformerConfig) {
       )
       .map(e => TrackLossDate(e.getAs[String](PatientID), Option(e.getAs[Timestamp](TracklossDate))))
 
-    val disease = config.outcomeName.getOrElse(None).toString
-    /* Outcome dataset removed due to not use in the studies
-        val outcomesDisease: Dataset[Event[Outcome]] = outcomes
-          .filter(e => e.value.matches(s".*$disease.*"))
-          .groupBy(col(PatientID))
-          .agg(
-            min(Start).as(Start)
-          ).map(e => Outcome(e.getAs[String](PatientID), disease, e.getAs[Timestamp](Start)))
-    */
     patientDates
       .joinWith(tracklossDates, tracklossDates.col(PatientID) === patientDates.col(PatientID), "left_outer")
-      //  .joinWith(outcomesDisease, col(PatientID) === col(s"_1.$PatientID"), "left_outer")
       .map { e =>
         val trackloss: Option[Timestamp] = Try(e._2.trackloss).getOrElse(None)
-        //   val disease: Option[Timestamp] = Try(Option(e._2.start)).getOrElse(None)
 
         val followUpEndReason = endReason(
           DeathReason(date = e._1.deathDate),

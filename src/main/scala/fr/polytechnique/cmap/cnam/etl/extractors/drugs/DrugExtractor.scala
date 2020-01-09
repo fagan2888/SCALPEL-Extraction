@@ -30,14 +30,14 @@ class DrugExtractor(drugConfig: DrugConfig) extends Extractor[Drug] {
       else {
         input.filter(isInExtractorScope _).filter(isInStudy(codes) _)
       }
-      }.flatMap(builder _).distinct()
-
+    }.flatMap(builder _).distinct()
   }
 
 
-  /** Method to generate a hash value in a string format for the groupID value from a row with these values
-    * FLX_DIS_DTD,FLX_TRT_DTD,FLX_EMT_TYP,FLX_EMT_NUM,FLX_EMT_ORD,ORG_CLE_NUM,DCT_ORD_NUM.
-    * They are the 7 columns that identifies in a unique way  prescriptions.
+  /** It generate a hash using the values of these columns
+    *(FLX_DIS_DTD,FLX_TRT_DTD,FLX_EMT_TYP,FLX_EMT_NUM,FLX_EMT_ORD,ORG_CLE_NUM,DCT_ORD_NUM).
+    * It allows to identify each prescription in a unique way, it can be used to identify
+    * the possible interactions of molecules prescript in the same period.
     *
     * @param r The Row object itself
     * @return A hash Id unique in a string format
