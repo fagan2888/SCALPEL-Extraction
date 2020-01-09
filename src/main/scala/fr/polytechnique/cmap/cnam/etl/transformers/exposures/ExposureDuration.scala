@@ -37,3 +37,17 @@ case class ExposureDuration(patientID: String, value: String, period: Period, sp
   def toExposure: Event[Exposure] =
     Exposure(self.patientID, self.value, 1D, self.period.start, self.period.start + Duration(milliseconds = span) get)
 }
+
+sealed trait ExposureDurationStrategy extends Function1[ExposureDuration, Event[Exposure]] with Serializable
+
+object PurchaseCountBased extends ExposureDurationStrategy {
+  override def apply(v1: ExposureDuration): Event[Exposure] = {
+    Exposure(v1.patientID, v1.value, 1D, v1.period.start, v1.period.start + Duration(milliseconds = v1.span) get)
+  }
+}
+
+object LatestPurchaseBased extends ExposureDurationStrategy {
+  override def apply(v1: ExposureDuration): Event[Exposure] = {
+    Exposure(v1.patientID, "NA", v1.value, 1D, v1.period.start, Some(v1.period.end))
+  }
+}

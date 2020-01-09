@@ -40,7 +40,8 @@ final case class LimitedExposureAdder(
   override val startDelay: Duration,
   endDelay: Duration,
   endThresholdGc: Duration,
-  endThresholdNgc: Duration) extends ExposurePeriodAdder(startDelay) {
+  endThresholdNgc: Duration,
+  toExposureStrategy: ExposureDurationStrategy) extends ExposurePeriodAdder(startDelay) {
 
   override def toExposure(followUps: Dataset[Event[FollowUp]])
     (drugs: Dataset[Event[Drug]]): Dataset[Event[Exposure]] = {
@@ -54,7 +55,7 @@ final case class LimitedExposureAdder(
       .map(fromDrugToExposureDuration)
       .groupByKey(ep => (ep.patientID, ep.value))
       .flatMapGroups((_, eds) => combineExposureDurations(eds))
-      .map(e => e.toExposure)
+      .map(e => toExposureStrategy(e))
   }
 
   def combineExposureDurations(exposureDurations: Iterator[ExposureDuration]): List[ExposureDuration] = {
