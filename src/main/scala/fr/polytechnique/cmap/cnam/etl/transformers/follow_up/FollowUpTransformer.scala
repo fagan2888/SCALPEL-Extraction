@@ -40,14 +40,14 @@ class FollowUpTransformer(config: FollowUpTransformerConfig) {
       .agg(
         min(DeathDate).as(DeathDate),
         min(FollowUpStart).as(FollowUpStart),
-        min(ObservationEnd).as(ObservationEnd)
+        min(Columns.ObservationEnd).as(Columns.ObservationEnd)
       )
       .map(
         e => PatientDates(
           e.getAs[String](PatientID),
           Option(e.getAs[Timestamp](DeathDate)),
           Option(e.getAs[Timestamp](FollowUpStart)),
-          Option(e.getAs[Timestamp](ObservationEnd))
+          Option(e.getAs[Timestamp](Columns.ObservationEnd))
         )
       )
 
