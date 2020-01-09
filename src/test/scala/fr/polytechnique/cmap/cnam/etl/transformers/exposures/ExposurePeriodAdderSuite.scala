@@ -8,7 +8,7 @@ import fr.polytechnique.cmap.cnam.SharedContext
 import fr.polytechnique.cmap.cnam.etl.events.{Drug, Event, Exposure, FollowUp}
 import fr.polytechnique.cmap.cnam.util.functions.makeTS
 
-class ExposurePeriodAdderSuite extends SharedContext {
+class ExposurePeriodAdderSuite extends SharedContext{
   "toExposure" should "transform drugs to exposure based on the limited adder strategy" in {
     // Given
     val sqlCtx = sqlContext
@@ -17,41 +17,11 @@ class ExposurePeriodAdderSuite extends SharedContext {
     //Given
 
     val input: Dataset[Event[Drug]] = Seq(
-      Drug(
-        "patient",
-        "Antidepresseurs",
-        2,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2014, 1, 8)
-      ),
-      Drug(
-        "patient",
-        "Antidepresseurs",
-        2,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2014, 2, 5)
-      ),
-      Drug(
-        "patient",
-        "Antidepresseurs",
-        2,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2014, 3, 12)
-      ),
-      Drug(
-        "patient",
-        "Antidepresseurs",
-        2,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2014, 4, 20)
-      ),
-      Drug(
-        "patient",
-        "Antidepresseurs",
-        2,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2014, 6, 3)
-      )
+      Drug("patient", "Antidepresseurs", 2,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2014, 1, 8)),
+      Drug("patient", "Antidepresseurs", 2,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2014, 2, 5)),
+      Drug("patient", "Antidepresseurs", 2,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2014, 3, 12)),
+      Drug("patient", "Antidepresseurs", 2,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2014, 4, 20)),
+      Drug("patient", "Antidepresseurs", 2,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2014, 6, 3))
     ).toDS
     val followUp: Dataset[Event[FollowUp]] = Seq(
       FollowUp("patient", "any_reason", makeTS(2006, 6, 1), makeTS(2020, 12, 31)),
@@ -77,55 +47,13 @@ class ExposurePeriodAdderSuite extends SharedContext {
     //Given
 
     val input: Dataset[Event[Drug]] = Seq[Event[Drug]](
-      Drug(
-        "Patient_A",
-        "PIOGLITAZONE",
-        1,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2008, 1, 1)
-      ),
-      Drug(
-        "Patient_A",
-        "PIOGLITAZONE",
-        1,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2008, 2, 1)
-      ),
-      Drug(
-        "Patient_A",
-        "PIOGLITAZONE",
-        1,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2008, 9, 1)
-      ),
-      Drug(
-        "Patient_A",
-        "SULFONYLUREA",
-        1,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMyMDBfMTc1OQ==",
-        makeTS(2009, 3, 1)
-      ),
-      Drug(
-        "Patient_A",
-        "SULFONYLUREA",
-        1,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMyMDBfMTc1OQ==",
-        makeTS(2009, 10, 1)
-      ),
-      Drug(
-        "Patient_B",
-        "PIOGLITAZONE",
-        1,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM0MDBfMTk0OQ==",
-        makeTS(2009, 1, 1)
-      ),
-      Drug(
-        "Patient_B",
-        "BENFLUOREX",
-        1,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM1MDBfMTczMw==",
-        makeTS(2007, 1, 1)
-      )
+      Drug("Patient_A", "PIOGLITAZONE", 1,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2008, 1, 1)),
+      Drug("Patient_A", "PIOGLITAZONE", 1,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2008, 2, 1)),
+      Drug("Patient_A", "PIOGLITAZONE", 1,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2008, 9, 1)),
+      Drug("Patient_A", "SULFONYLUREA", 1,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMyMDBfMTc1OQ==", makeTS(2009, 3, 1)),
+      Drug("Patient_A", "SULFONYLUREA", 1,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMyMDBfMTc1OQ==", makeTS(2009, 10, 1)),
+      Drug("Patient_B", "PIOGLITAZONE", 1,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM0MDBfMTk0OQ==", makeTS(2009, 1, 1)),
+      Drug("Patient_B", "BENFLUOREX", 1,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM1MDBfMTczMw==", makeTS(2007, 1, 1))
     ).toDS
 
     val followUp: Dataset[Event[FollowUp]] = Seq[Event[FollowUp]](
@@ -135,14 +63,7 @@ class ExposurePeriodAdderSuite extends SharedContext {
     ).toDS()
 
     val expected: Dataset[Event[Exposure]] = Seq[Event[Exposure]](
-      Exposure(
-        "Patient_A",
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        "PIOGLITAZONE",
-        1,
-        makeTS(2008, 2, 1),
-        Some(makeTS(2008, 11, 30))
-      )
+      Exposure("Patient_A", "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", "PIOGLITAZONE", 1, makeTS(2008, 2, 1), Some(makeTS(2008, 11, 30)))
     ).toDS()
     val exposureAdder = UnlimitedExposureAdder(3.months, 2, 6.months)
 
@@ -159,55 +80,13 @@ class ExposurePeriodAdderSuite extends SharedContext {
     //Given
 
     val input: Dataset[Event[Drug]] = Seq[Event[Drug]](
-      Drug(
-        "Patient_A",
-        "PIOGLITAZONE",
-        1,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2008, 1, 1)
-      ),
-      Drug(
-        "Patient_A",
-        "PIOGLITAZONE",
-        1,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2008, 2, 1)
-      ),
-      Drug(
-        "Patient_A",
-        "PIOGLITAZONE",
-        1,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2008, 9, 1)
-      ),
-      Drug(
-        "Patient_A",
-        "SULFONYLUREA",
-        1,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMyMDBfMTc1OQ==",
-        makeTS(2009, 3, 1)
-      ),
-      Drug(
-        "Patient_A",
-        "SULFONYLUREA",
-        1,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMyMDBfMTc1OQ==",
-        makeTS(2009, 10, 1)
-      ),
-      Drug(
-        "Patient_B",
-        "PIOGLITAZONE",
-        1,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM0MDBfMTk0OQ==",
-        makeTS(2009, 1, 1)
-      ),
-      Drug(
-        "Patient_B",
-        "BENFLUOREX",
-        1,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM1MDBfMTczMw==",
-        makeTS(2007, 1, 1)
-      )
+      Drug("Patient_A", "PIOGLITAZONE", 1,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2008, 1, 1)),
+      Drug("Patient_A", "PIOGLITAZONE", 1,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2008, 2, 1)),
+      Drug("Patient_A", "PIOGLITAZONE", 1,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2008, 9, 1)),
+      Drug("Patient_A", "SULFONYLUREA", 1,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMyMDBfMTc1OQ==", makeTS(2009, 3, 1)),
+      Drug("Patient_A", "SULFONYLUREA", 1,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMyMDBfMTc1OQ==", makeTS(2009, 10, 1)),
+      Drug("Patient_B", "PIOGLITAZONE", 1,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM0MDBfMTk0OQ==", makeTS(2009, 1, 1)),
+      Drug("Patient_B", "BENFLUOREX", 1,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM1MDBfMTczMw==", makeTS(2007, 1, 1))
     ).toDS
 
 
@@ -218,22 +97,8 @@ class ExposurePeriodAdderSuite extends SharedContext {
     ).toDS()
 
     val expected: Dataset[Event[Exposure]] = Seq[Event[Exposure]](
-      Exposure(
-        "Patient_A",
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        "PIOGLITAZONE",
-        1,
-        makeTS(2008, 1, 1),
-        Some(makeTS(2008, 11, 30))
-      ),
-      Exposure(
-        "Patient_B",
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM1MDBfMTczMw==",
-        "BENFLUOREX",
-        1,
-        makeTS(2007, 1, 1),
-        Some(makeTS(2007, 7, 1))
-      )
+      Exposure("Patient_A", "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", "PIOGLITAZONE", 1, makeTS(2008, 1, 1), Some(makeTS(2008, 11, 30))),
+      Exposure("Patient_B", "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM1MDBfMTczMw==", "BENFLUOREX", 1, makeTS(2007, 1, 1), Some(makeTS(2007, 7, 1)))
     ).toDS()
     val exposureAdder = UnlimitedExposureAdder(0.months, 1, 0.months)
 

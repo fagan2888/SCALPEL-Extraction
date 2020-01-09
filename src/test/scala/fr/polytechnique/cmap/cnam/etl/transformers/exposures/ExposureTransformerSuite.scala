@@ -17,34 +17,10 @@ class ExposureTransformerSuite extends SharedContext {
 
     //Given
     val input: Dataset[Event[Drug]] = Seq(
-      Drug(
-        "Patient_A",
-        "Antidepresseurs",
-        2,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2014, 6, 8)
-      ),
-      Drug(
-        "Patient_A",
-        "Antidepresseurs",
-        2,
-        "MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==",
-        makeTS(2014, 7, 1)
-      ),
-      Drug(
-        "Patient_B",
-        "Antidepresseurs",
-        2,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM0MDBfMTk0OQ==",
-        makeTS(2014, 2, 5)
-      ),
-      Drug(
-        "Patient_B",
-        "Antidepresseurs",
-        2,
-        "MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM0MDBfMTk0OQ==",
-        makeTS(2014, 9, 1)
-      )
+      Drug("Patient_A", "Antidepresseurs", 2,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2014, 6, 8)),
+      Drug("Patient_A", "Antidepresseurs", 2,"MjAxNC0wOS0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzMxMDBfMTc0OQ==", makeTS(2014, 7, 1)),
+      Drug("Patient_B", "Antidepresseurs", 2,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM0MDBfMTk0OQ==", makeTS(2014, 2, 5)),
+      Drug("Patient_B", "Antidepresseurs", 2,"MjAxNC0wOC0wMV8yMDE0LTA3LTE3XzFfMTdfMF8wMUM2NzM0MDBfMTk0OQ==", makeTS(2014, 9, 1))
     ).toDS
     val followUp: Dataset[Event[FollowUp]] = Seq(
       FollowUp("Patient_A", "any_reason", makeTS(2014, 6, 1), makeTS(2016, 12, 31)),
