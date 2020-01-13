@@ -8,10 +8,21 @@ import org.apache.spark.sql.Dataset
 import fr.polytechnique.cmap.cnam.etl.events.{AnyEvent, Event, Molecule, ObservationPeriod}
 import fr.polytechnique.cmap.cnam.util.datetime.implicits._
 
+
+/** It allows create an ObservationPeriod dataset using the dataset of
+  * Dataset[Event[AnyEvent]]
+  *
+  * @param config
+  */
 class ObservationPeriodTransformer(config: ObservationPeriodTransformerConfig) {
 
   import Columns._
 
+  /** The main method in this transformation class
+    *
+    * @param events
+    * @return
+    */
   def transform(events: Dataset[Event[AnyEvent]]): Dataset[Event[ObservationPeriod]] = {
 
     val studyStart: Timestamp = config.studyStart
@@ -20,6 +31,9 @@ class ObservationPeriodTransformer(config: ObservationPeriodTransformerConfig) {
 
     import events.sqlContext.implicits._
 
+    /** It takes the Dataset[Event[AnyEvent]] and filter by molecule
+      * category and date later of study start date.
+      */
     events.filter(
       e => e.category == Molecule.category && (e.start
         .compareTo(studyStart) >= 0)
